@@ -1,0 +1,205 @@
+---
+import logoImage from '../assets/logo/cheng.png';
+---
+
+<nav class="nav">
+  <div class="nav__container container">
+    <div class="nav__brand">
+      <a href="/" class="nav__logo">
+        <img src={logoImage.src} alt="Cheng logo" class="nav__logo-image" />
+        <span class="nav__logo-text">chéng</span>
+      </a>
+
+      <h1 class="nav__fullname">Cheng Dong</h1>
+    </div>
+
+    <button
+      class="nav__toggle"
+      id="nav-toggle"
+      aria-label="Menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav__menu" id="nav-menu">
+      <li class="nav__item">
+        <a href="/#work" class="nav__link">Work</a>
+      </li>
+      <li class="nav__item">
+        <a href="/#about" class="nav__link">About</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  /* Block: .nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow);
+    z-index: 100;
+  }
+
+  .nav__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4.5rem;
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nav__fullname {
+    display: none;
+    font-size: var(--type-scale-h4);
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .nav__logo-text {
+    font-size: clamp(0.75rem, 0.5vw + 0.5rem, 0.875rem); /* 12px to 14px */
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* Element: .nav__logo */
+  .nav__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.1rem;
+    color: var(--color-text);
+  }
+
+  .nav__logo-image {
+    width: clamp(2.25rem, 8vw, 3.5rem); /* 36px to 56px */
+    height: auto;
+  }
+
+  /* Element: .nav__toggle (Hamburger) */
+  .nav__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 110; /* Ensure it's above the menu */
+  }
+
+  .nav__toggle span {
+    display: block;
+    width: 2rem;
+    height: 0.2rem;
+    background: var(--color-text);
+    border-radius: var(--radius);
+    transition: all var(--transition);
+    transform-origin: center;
+  }
+
+  /* Element: .nav__menu (Mobile) */
+  .nav__menu {
+    list-style: none;
+    padding: 4rem 2rem 2rem;
+    margin: 0;
+    position: fixed; /* Use fixed for full-screen overlay */
+    top: 0;
+    right: -100%; /* Start off-screen to the right */
+    width: min(75vw, 400px); /* 75% of screen width, max of 400px */
+    height: 100vh;
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-large);
+    transition: right var(--transition) ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap);
+    z-index: 105;
+  }
+
+  /* Modifier: .nav__menu--active */
+  .nav__menu--active {
+    right: 0; /* Slide in from the right */
+  }
+
+  .nav__link {
+    font-size: var(--type-scale-h4);
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .nav__link:hover {
+    color: var(--color-hover-green);
+  }
+
+  /* Modifier for animating hamburger icon */
+  .nav__toggle.is-active span:nth-child(1) {
+    transform: rotate(45deg) translate(0.4rem, 0.4rem);
+  }
+
+  .nav__toggle.is-active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav__toggle.is-active span:nth-child(3) {
+    transform: rotate(-45deg) translate(0.45rem, -0.45rem);
+  }
+
+  /* Desktop Styles */
+  @media (min-width: 768px) {
+    .nav__toggle {
+      display: none;
+    }
+
+    .nav__fullname {
+      display: block; /* Show the full name on screens wider than 768px */
+    }
+
+    .nav__menu {
+      position: static;
+      flex-direction: row;
+      align-items: center;
+      width: auto;
+      height: auto;
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .nav__link {
+      font-size: var(--type-scale-h6);
+    }
+  }
+</style>
+
+<script>
+  const navToggle = document.getElementById('nav-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('nav__menu--active');
+      navToggle.classList.toggle('is-active');
+
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', (!isExpanded).toString());
+    });
+  }
+</script>

@@ -1,0 +1,68 @@
+---
+import Icon from "./icon.astro";
+---
+
+<footer class="footer">
+  <div class="footer__container container">
+    <p class="footer__copyright">
+      © {new Date().getFullYear()} cheng dong
+    </p>
+
+    <ul class="footer__socials">
+      <li>
+        <Icon 
+          name="github" 
+          href="https://github.com/chengdong-eric/"
+          label="GitHub" 
+        />
+      </li>
+      <li>
+        <Icon 
+          name="linkedin" 
+          href="https://www.linkedin.com/in/chengdong01/" 
+          label="LinkedIn" 
+        />
+      </li>
+      <li>
+        <Icon 
+          name="email" 
+          href="mailto:eric3365@outlook.com" 
+          label="Email" 
+        />
+      </li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: calc(var(--section-padding-block) / 2);
+  }
+
+  .footer__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer__copyright {
+    font-size: var(--type-scale-s);
+  }
+
+  .footer__socials {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+  }
+
+  @media (min-width: 768px) {
+    .footer__container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+</style>

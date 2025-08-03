@@ -1,0 +1,52 @@
+---
+export interface Props {
+  name: string;
+  href: string;
+  label: string;
+  size?: string;
+}
+
+const { name, href, label, size = '1.5em' } = Astro.props;
+---
+
+<a
+  class="icon"
+  href={href}
+  style={`--size: ${size};`}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <i style={`--size: ${size};`}>
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      style={`width: var(--size); height: var(--size);`}
+    >
+      <use xlink:href={`/images/icons.svg#${name}`}></use>
+    </svg>
+  </i>
+  <span class="srt" style={`--size: ${size};`}>{label}</span>
+</a>
+
+<style>
+  .icon {
+    display: inline-block;
+    color: var(--color-secondary-blue-400);
+    transition: color var(--transition);
+  }
+  .icon:hover {
+    color: var(--color-hover-green);
+  }
+
+  .srt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
